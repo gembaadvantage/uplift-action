@@ -18,22 +18,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-name: "Uplift Action"
-description: "GitHub Action for Uplift, the semantic versioning tool built for CI"
-author: "gembaadvantage"
-branding:
-  color: "blue"
-  icon: "tag"
-
-inputs:
-  version:
-    description: "Uplift version"
-    default: "latest"
-    required: false
-  args:
-    description: "Arguments to pass to Uplift"
-    required: false
-
-runs:
-  using: "node12"
-  main: "dist/index.js"
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "production"
