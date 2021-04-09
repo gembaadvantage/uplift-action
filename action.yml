@@ -1,0 +1,19 @@
+name: "Uplift Action"
+description: "GitHub Action for Uplift, the semantic versioning tool built for CI"
+author: "gembaadvantage"
+branding:
+  color: "blue"
+  icon: "tag"
+
+inputs:
+  version:
+    description: "Uplift version"
+    default: "latest"
+    required: false
+  args:
+    description: "Arguments to pass to Uplift"
+    required: false
+
+runs:
+  using: "node12"
+  main: "dist/index.js"
