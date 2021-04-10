@@ -18,8 +18,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import * as core from "@actions/core";
+import * as exec from "@actions/exec";
+import * as installer from "./github";
+
 async function run(): Promise<void> {
-  console.log("uplift action");
+  try {
+    const version = core.getInput("version") || "latest";
+    const args = core.getInput("args");
+
+    // Download and grab path to the binary
+    const path = await installer.downloadUplift(version);
+
+    await exec.exec(`${path} ${args}`);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 }
 
 run();
