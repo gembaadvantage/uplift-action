@@ -30,6 +30,7 @@ async function run(): Promise<void> {
     // Download and grab path to the binary
     const path = await installer.downloadUplift(version)
 
+    core.info('🚀 Running uplift')
     await exec.exec(`${path} bump ${args}`)
   } catch (error) {
     core.setFailed(error.message)
