@@ -18,22 +18,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import * as core from '@actions/core'
-import * as exec from '@actions/exec'
-import * as installer from './github'
+import * as tmp from 'tmp'
 
-async function run(): Promise<void> {
-  try {
-    const version = core.getInput('version') || 'latest'
-    const args = core.getInput('args')
+tmp.setGracefulCleanup()
 
-    // Download and grab path to the binary
-    const path = await installer.downloadUplift(version)
+const tmpdir = tmp.dirSync({template: 'uplift-XXXXXX'})
 
-    await exec.exec(`${path} bump ${args}`)
-  } catch (error) {
-    core.setFailed(error.message)
-  }
-}
-
-run()
+process.env = Object.assign(process.env, {
+  RUNNER_TEMP: tmpdir.name,
+  RUNNER_TOOL_CACHE: tmpdir.name,
+  GITHUB_ACTION: '1'
+})
