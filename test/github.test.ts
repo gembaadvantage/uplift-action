@@ -35,7 +35,7 @@ describe('Github download Uplift', () => {
       )
     ).result
     if (!tag) {
-      throw new Error('')
+      throw new Error('Failed to pull latest release from Github')
     }
 
     expect(fs.existsSync(path)).toBe(true)
