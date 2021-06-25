@@ -1,0 +1,9 @@
+bumps:
+  - file: ./package.json
+    regex: '"version": "$VERSION"'
+    semver: true
+    count: 1
+  - file: ./package-lock.json
+    regex: '"version": "$VERSION"'
+    semver: true
+    count: 1
