@@ -8,7 +8,7 @@ A Github Action for the [Uplift](https://github.com/gembaadvantage/uplift) seman
 
 ## Usage
 
-Easily integrate uplift into your existing workflows, by using the `@v1` of the action:
+Easily integrate uplift into your existing workflows, by using `@v1` of the action:
 
 ```yaml
 steps:
@@ -20,7 +20,19 @@ steps:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-You can configure the behaviour of uplift by setting some inputs:
+If you need uplift to trigger another workflow after it has tagged your repository, you will need to associate a custom personal access token with the `GITHUB_TOKEN`. This is by [design](https://docs.github.com/en/actions/reference/authentication-in-a-workflow#using-the-github_token-in-a-workflow).
+
+```yaml
+steps:
+  - uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
+  - uses: gembaadvantage/uplift-action@v1
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
+```
+
+You can also configure the behaviour of uplift by setting its inputs:
 
 ```yaml
 steps:
@@ -38,7 +50,7 @@ steps:
 
 ### Inputs
 
-Customisable inputs can be provided through the use of the `step.with` keys:
+Customisable inputs can be provided through the `with` keys:
 
 | Name    | Required | Type    | Default  | Description                                                                                                       |
 | ------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
