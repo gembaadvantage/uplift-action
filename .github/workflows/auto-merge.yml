@@ -20,7 +20,10 @@
 
 name: auto-merge
 on:
-  pull_request:
+  workflow_run:
+    workflows: ['ci']
+    types: ['completed']
+    branches: ['!main']
 jobs:
   auto-merge:
     runs-on: ubuntu-latest
