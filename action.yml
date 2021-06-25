@@ -18,22 +18,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-name: "Uplift Action"
-description: "GitHub Action for Uplift, the semantic versioning tool built for CI"
-author: "gembaadvantage"
+name: 'Uplift Action'
+description: 'GitHub Action for Uplift, the semantic versioning tool built for CI'
+author: 'gembaadvantage'
 branding:
-  color: "blue"
-  icon: "tag"
+  color: 'blue'
+  icon: 'tag'
 
 inputs:
   version:
-    description: "Uplift version"
-    default: "latest"
+    description: 'Uplift version'
+    default: 'latest'
     required: false
-  args:
-    description: "Arguments to pass to Uplift"
+  dry-run:
+    description: 'If Uplift should not commit any changes'
+    required: false
+  verbose:
+    description: 'If Uplift should log using verbose (debug) mode'
     required: false
 
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'node12'
+  main: 'dist/index.js'
