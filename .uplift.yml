@@ -1,0 +1,5 @@
+bumps:
+  - file: ./package.json
+    regex: '"version": "$VERSION"'
+    semver: true
+    count: 1
