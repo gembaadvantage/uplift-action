@@ -13,9 +13,25 @@ Easily integrate uplift into your existing workflows, by using the `@v1` of the 
 ```yaml
 steps:
   - uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
+  - uses: gembaadvantage/uplift-action@v1
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+You can configure the behaviour of uplift by setting some inputs:
+
+```yaml
+steps:
+  - uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
   - uses: gembaadvantage/uplift-action@v1
     with:
       version: latest
+      dry-run: true
+      verbose: true
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -24,7 +40,8 @@ steps:
 
 Customisable inputs can be provided through the use of the `step.with` keys:
 
-| Name    | Type   | Default  | Description                                                                            |
-| ------- | ------ | -------- | -------------------------------------------------------------------------------------- |
-| version | String | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases) |
-| args    | String |          | Command line arguments to pass to uplift                                               |
+| Name    | Required | Type    | Default  | Description                                                                                                       |
+| ------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| version | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases)                            |
+| dry-run | No       | Boolean | false    | Set to true to prevent any changes from being committed. Useful if you want to calculate the next tag for example |
+| verbose | No       | Boolean | false    | Set to true if you want verbose (_debug_) output from Uplift                                                      |

@@ -25,13 +25,23 @@ import * as installer from './github'
 async function run(): Promise<void> {
   try {
     const version = core.getInput('version') || 'latest'
-    const args = core.getInput('args')
+    const dryRun = core.getBooleanInput('dry-run') || false
+    const verbose = core.getBooleanInput('verbose') || false
+
+    // Build up an array of optional arguments to pass to uplift
+    const args: string[] = []
+    if (dryRun === true) {
+      args.push('--dry-run')
+    }
+    if (verbose === true) {
+      args.push('--verbose')
+    }
 
     // Download and grab path to the binary
     const path = await installer.downloadUplift(version)
 
     core.info('🚀 Running uplift')
-    await exec.exec(`${path} bump ${args}`)
+    await exec.exec(`${path} bump ${args.join(' ')}`)
   } catch (error) {
     core.setFailed(error.message)
   }
