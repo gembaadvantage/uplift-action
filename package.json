@@ -1,6 +1,6 @@
 {
   "name": "uplift-action",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "GitHub Action for Uplift, the semantic versioning tool built for CI ",
   "main": "lib/main.js",
   "scripts": {
