@@ -32,9 +32,11 @@ inputs:
     required: false
   dry-run:
     description: 'If Uplift should not commit any changes'
+    default: 'false'
     required: false
   verbose:
     description: 'If Uplift should log using verbose (debug) mode'
+    default: 'false'
     required: false
 
 runs:
