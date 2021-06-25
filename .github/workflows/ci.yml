@@ -50,9 +50,6 @@ jobs:
         run: npm run package
       - name: Tag
         if: github.ref == 'refs/heads/main'
-        uses: gembaadvantage/uplift-action@v1.1.0
-        with:
-          dry-run: false
-          verbose: false
+        uses: gembaadvantage/uplift-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
