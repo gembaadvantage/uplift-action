@@ -44,6 +44,7 @@ steps:
       version: latest
       dry-run: true
       verbose: true
+      install-only: true
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -52,8 +53,9 @@ steps:
 
 Customisable inputs can be provided through the `with` keys:
 
-| Name    | Required | Type    | Default  | Description                                                                                                       |
-| ------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| version | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases)                            |
-| dry-run | No       | Boolean | false    | Set to true to prevent any changes from being committed. Useful if you want to calculate the next tag for example |
-| verbose | No       | Boolean | false    | Set to true if you want verbose (_debug_) output from Uplift                                                      |
+| Name           | Required | Type    | Default  | Description                                                                                                       |
+| -------------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| `version`      | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases)                            |
+| `dry-run`      | No       | Boolean | false    | Set to true to prevent any changes from being committed. Useful if you want to calculate the next tag for example |
+| `verbose`      | No       | Boolean | false    | Set to true if you want verbose (_debug_) output from uplift                                                      |
+| `install-only` | No       | Boolean | false    | Set to true to install uplift and expose the binary on the current PATH                                           |

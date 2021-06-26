@@ -20,6 +20,7 @@
 
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
+import {dirname} from 'path'
 import * as installer from './github'
 
 async function run(): Promise<void> {
@@ -27,6 +28,17 @@ async function run(): Promise<void> {
     const version = core.getInput('version') || 'latest'
     const dryRun = core.getBooleanInput('dry-run') || false
     const verbose = core.getBooleanInput('verbose') || false
+    const installOnly = core.getBooleanInput('install-only') || false
+
+    // Download and grab path to the binary
+    const path = await installer.downloadUplift(version)
+
+    if (installOnly === true) {
+      const binaryDir = dirname(path)
+      core.addPath(binaryDir)
+      core.info('🚀 Successfully added Uplift to PATH')
+      return
+    }
 
     // Build up an array of optional arguments to pass to uplift
     const args: string[] = []
@@ -36,9 +48,6 @@ async function run(): Promise<void> {
     if (verbose === true) {
       args.push('--verbose')
     }
-
-    // Download and grab path to the binary
-    const path = await installer.downloadUplift(version)
 
     core.info('🚀 Running uplift')
     await exec.exec(`${path} bump ${args.join(' ')}`)
