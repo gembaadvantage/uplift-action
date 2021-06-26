@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install
-        run: npm install
+        run: npm ci
       - name: Lint
         run: npm run lint
       - name: Test
@@ -46,8 +46,6 @@ jobs:
         uses: codecov/codecov-action@v1.5.2
       - name: Build
         run: npm run build
-      - name: Package
-        run: npm run package
       - name: Tag
         if: github.ref == 'refs/heads/main'
         uses: gembaadvantage/uplift-action@v1
