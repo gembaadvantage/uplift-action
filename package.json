@@ -4,12 +4,11 @@
   "description": "GitHub Action for Uplift, the semantic versioning tool built for CI ",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && ncc build",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "test": "jest --coverage",
-    "lint": "eslint src/**/*.ts",
-    "package": "ncc build"
+    "lint": "eslint src/**/*.ts"
   },
   "repository": {
     "type": "git",
