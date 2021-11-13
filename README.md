@@ -8,14 +8,16 @@ A Github Action for the [Uplift](https://github.com/gembaadvantage/uplift) seman
 
 ## Usage
 
-Easily integrate uplift into your existing workflows, by using `@v1` of the action:
+Easily integrate uplift into your existing workflows, by using `@v2` of the action:
 
 ```yaml
 steps:
   - uses: actions/checkout@v2
     with:
       fetch-depth: 0
-  - uses: gembaadvantage/uplift-action@v1
+  - uses: gembaadvantage/uplift-action@v2
+    with:
+      args: release
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -27,7 +29,9 @@ steps:
   - uses: actions/checkout@v2
     with:
       fetch-depth: 0
-  - uses: gembaadvantage/uplift-action@v1
+  - uses: gembaadvantage/uplift-action@v2
+    with:
+      args: release
     env:
       GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
 ```
@@ -39,12 +43,11 @@ steps:
   - uses: actions/checkout@v2
     with:
       fetch-depth: 0
-  - uses: gembaadvantage/uplift-action@v1
+  - uses: gembaadvantage/uplift-action@v2
     with:
       version: latest
-      dry-run: true
-      verbose: true
       install-only: true
+      args: release
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -53,9 +56,8 @@ steps:
 
 Customisable inputs can be provided through the `with` keys:
 
-| Name           | Required | Type    | Default  | Description                                                                                                       |
-| -------------- | -------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
-| `version`      | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases)                            |
-| `dry-run`      | No       | Boolean | false    | Set to true to prevent any changes from being committed. Useful if you want to calculate the next tag for example |
-| `verbose`      | No       | Boolean | false    | Set to true if you want verbose (_debug_) output from uplift                                                      |
-| `install-only` | No       | Boolean | false    | Set to true to install uplift and expose the binary on the current PATH                                           |
+| Name           | Required | Type    | Default  | Description                                                                            |
+| -------------- | -------- | ------- | -------- | -------------------------------------------------------------------------------------- |
+| `version`      | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases) |
+| `install-only` | No       | Boolean | false    | Set to true to install uplift and expose the binary on the current PATH                |
+| `args`         | Yes      | String  | ''       | A list of arguments that are used when running Uplift                                  |
