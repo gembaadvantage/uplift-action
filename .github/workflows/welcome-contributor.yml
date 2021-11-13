@@ -26,17 +26,17 @@ jobs:
   welcome-contributor:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v4
+      - uses: actions/github-script@v5
         with:
           script: |
             // Retrieve all issues by the current user
             const creator = context.payload.sender.login
-            const opts = github.issues.listForRepo.endpoint.merge({
+            const opts = github.rest.issues.listForRepo.endpoint.merge({
               ...context.issue,
               creator,
               state: 'all'
             })
-            const {status, data: issues} = await github.paginate(opts)
+            const issues = await github.paginate(opts)
 
             if (issues.length !== 0) {
               return
@@ -50,8 +50,8 @@ jobs:
               labels: ['good first issue']
             })
 
-            // Welcome the new contributer
-            await github.issues.createComment({
+            // Welcome the new contributor
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
