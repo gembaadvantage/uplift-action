@@ -48,8 +48,8 @@ jobs:
         run: npm run build
       - name: Tag
         if: github.ref == 'refs/heads/main'
-        uses: gembaadvantage/uplift-action@v1
+        uses: gembaadvantage/uplift-action@v2
         with:
-          version: 'v0.7.0'
+          args: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
