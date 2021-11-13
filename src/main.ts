@@ -31,7 +31,7 @@ async function run(): Promise<void> {
 
     // Arguments must be passed for Uplift to run
     if (!args) {
-      core.setFailed('args input to action is required')
+      core.setFailed('args input for action is required')
       return
     }
 
