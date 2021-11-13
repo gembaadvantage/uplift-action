@@ -26,9 +26,14 @@ import * as installer from './github'
 async function run(): Promise<void> {
   try {
     const version = core.getInput('version') || 'latest'
-    const dryRun = core.getBooleanInput('dry-run') || false
-    const verbose = core.getBooleanInput('verbose') || false
     const installOnly = core.getBooleanInput('install-only') || false
+    const args = core.getInput('args')
+
+    // Arguments must be passed for Uplift to run
+    if (!args) {
+      core.setFailed('args input to action is required')
+      return
+    }
 
     // Download and grab path to the binary
     const path = await installer.downloadUplift(version)
@@ -40,17 +45,8 @@ async function run(): Promise<void> {
       return
     }
 
-    // Build up an array of optional arguments to pass to uplift
-    const args: string[] = []
-    if (dryRun === true) {
-      args.push('--dry-run')
-    }
-    if (verbose === true) {
-      args.push('--verbose')
-    }
-
     core.info('🚀 Running uplift')
-    await exec.exec(`${path} bump ${args.join(' ')}`)
+    await exec.exec(`${path} ${args}`)
   } catch (error) {
     core.setFailed(error.message)
   }

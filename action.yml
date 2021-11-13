@@ -30,18 +30,13 @@ inputs:
     description: 'Uplift version'
     default: 'latest'
     required: false
-  dry-run:
-    description: 'If uplift should not commit any changes'
-    default: 'false'
-    required: false
-  verbose:
-    description: 'If uplift should log using verbose (debug) mode'
-    default: 'false'
-    required: false
   install-only:
     description: 'If the uplift binary should be installed only'
     default: 'false'
     required: false
+  args:
+    description: 'List of arguments when running Uplift'
+    required: true
 
 runs:
   using: 'node12'
