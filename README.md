@@ -59,5 +59,5 @@ Customisable inputs can be provided through the `with` keys:
 | Name           | Required | Type    | Default  | Description                                                                            |
 | -------------- | -------- | ------- | -------- | -------------------------------------------------------------------------------------- |
 | `version`      | No       | String  | `latest` | The uplift version, see [available](https://github.com/gembaadvantage/uplift/releases) |
-| `install-only` | No       | Boolean | false    | Set to true to install uplift and expose the binary on the current PATH                |
-| `args`         | Yes      | String  | ''       | A list of arguments that are used when running Uplift                                  |
+| `install-only` | No       | Boolean | `false`  | Set to true to install uplift and expose the binary on the current PATH                |
+| `args`         | Yes      | String  |          | A list of arguments that are used when running Uplift                                  |
