@@ -43,7 +43,7 @@ jobs:
       - name: Test
         run: npm run test
       - name: Code Coverage
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v3.1.1
       - name: Build
         run: npm run build
       - name: Tag
