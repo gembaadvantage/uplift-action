@@ -20,7 +20,6 @@
 
 name: ci
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
