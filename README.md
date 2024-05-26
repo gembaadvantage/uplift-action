@@ -12,7 +12,7 @@ Easily integrate uplift into your existing workflows, by using `@v2` of the acti
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v4
     with:
       fetch-depth: 0
   - uses: gembaadvantage/uplift-action@v2
@@ -26,7 +26,7 @@ If you need uplift to trigger another workflow after it has tagged your reposito
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v4
     with:
       fetch-depth: 0
   - uses: gembaadvantage/uplift-action@v2
