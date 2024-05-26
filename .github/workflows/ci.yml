@@ -20,6 +20,7 @@
 
 name: ci
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -33,9 +34,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: '20'
       - name: Install
         run: npm ci
       - name: Lint
@@ -43,7 +44,7 @@ jobs:
       - name: Test
         run: npm run test
       - name: Code Coverage
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v4.4.1
       - name: Build
         run: npm run build
       - name: Tag
