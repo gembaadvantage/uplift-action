@@ -1,20 +1,21 @@
 # Uplift Github Action
 
-[![Build status](https://img.shields.io/github/workflow/status/gembaadvantage/uplift-action/ci?style=flat-square&logo=typescript)](https://github.com/gembaadvantage/uplift-action/actions?workflow=ci)
+[![Build status](https://img.shields.io/github/actions/workflow/status/gembaadvantage/uplift-action/ci.yml?style=flat-square&logo=typescript)](https://github.com/gembaadvantage/uplift-action/actions?workflow=ci)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](/LICENSE)
 [![codecov](https://codecov.io/gh/gembaadvantage/uplift-action/branch/main/graph/badge.svg)](https://codecov.io/gh/gembaadvantage/uplift-action)
 
 A Github Action for the [Uplift](https://github.com/gembaadvantage/uplift) semantic versioning tool.
 
-## Usage
+## Basic Usage
 
-Easily integrate uplift into your existing workflows, by using `@v2` of the action:
+Easily integrate uplift into your existing workflows, by using `v2` of the action:
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v4
     with:
       fetch-depth: 0
+
   - uses: gembaadvantage/uplift-action@v2
     with:
       args: release
@@ -22,13 +23,17 @@ steps:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Triggering another Workflow
+
 If you need uplift to trigger another workflow after it has tagged your repository, you will need to associate a custom personal access token with the `GITHUB_TOKEN`. This is by [design](https://docs.github.com/en/actions/reference/authentication-in-a-workflow#using-the-github_token-in-a-workflow).
 
 ```yaml
 steps:
-  - uses: actions/checkout@v2
+  - uses: actions/checkout@v4
     with:
       fetch-depth: 0
+      token: ${{ secrets.GH_UPLIFT }}
+
   - uses: gembaadvantage/uplift-action@v2
     with:
       args: release
@@ -36,21 +41,37 @@ steps:
       GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
 ```
 
-You can also configure the behaviour of uplift by setting its inputs:
+## Customising the Git Author
 
-```yaml
-steps:
-  - uses: actions/checkout@v2
-    with:
-      fetch-depth: 0
-  - uses: gembaadvantage/uplift-action@v2
-    with:
-      version: latest
-      install-only: true
-      args: release
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+By default, uplift will interact with git as the [uplift-bot](https://github.com/uplift-bot). To configure this behaviour, you have two options:
+
+1. Set the git author directly through uplift [configuration](https://upliftci.dev/reference/config/#commitauthor):
+
+   ```yaml
+   # .uplift.yaml
+   commitAuthor:
+     name: 'joe.bloggs'
+     email: 'joe.bloggs@gmail.com'
+   ```
+
+1. [Import](https://upliftci.dev/commit-signing/) a GPG key (_recommended_):
+
+   ```yaml
+   steps:
+     - uses: actions/checkout@v4
+       with:
+         fetch-depth: 0
+         token: ${{ secrets.GH_UPLIFT }}
+
+     - uses: gembaadvantage/uplift-action@v2
+       with:
+         args: release
+       env:
+         GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
+         UPLIFT_GPG_KEY: "${{ secrets.UPLIFT_GPG_KEY }}"
+         UPLIFT_GPG_PASSPHRASE: "${{ secrets .UPLIFT_GPG_PASSPHRASE }}"
+         UPLIFT_GPG_FINGERPRINT: "${{ secrets.UPLIFT_GPG_FINGERPRINT }}"
+   ```
 
 ### Inputs
 
