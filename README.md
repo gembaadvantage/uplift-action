@@ -41,6 +41,38 @@ steps:
       GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
 ```
 
+## Customising the Git Author
+
+By default, uplift will interact with git as the [uplift-bot](https://github.com/uplift-bot). To configure this behaviour, you have two options:
+
+1. Set the git author directly through uplift [configuration](https://upliftci.dev/reference/config/#commitauthor):
+
+   ```yaml
+   # .uplift.yaml
+   commitAuthor:
+     name: 'joe.bloggs'
+     email: 'joe.bloggs@gmail.com'
+   ```
+
+1. [Import](https://upliftci.dev/commit-signing/) a GPG key (_recommended_):
+
+   ```yaml
+   steps:
+     - uses: actions/checkout@v4
+       with:
+         fetch-depth: 0
+         token: ${{ secrets.GH_UPLIFT }}
+
+     - uses: gembaadvantage/uplift-action@v2
+       with:
+         args: release
+       env:
+         GITHUB_TOKEN: ${{ secrets.GH_UPLIFT }}
+         UPLIFT_GPG_KEY: "${{ secrets.UPLIFT_GPG_KEY }}"
+         UPLIFT_GPG_PASSPHRASE: "${{ secrets .UPLIFT_GPG_PASSPHRASE }}"
+         UPLIFT_GPG_FINGERPRINT: "${{ secrets.UPLIFT_GPG_FINGERPRINT }}"
+   ```
+
 ### Inputs
 
 Customisable inputs can be provided through the `with` keys:
