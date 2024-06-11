@@ -9,3 +9,7 @@ bumps:
       - pattern: '"version": "$VERSION"'
         semver: true
         count: 1
+
+git:
+  includeArtifacts:
+    - dist/index.js
